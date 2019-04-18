@@ -1,0 +1,11 @@
+C:\Users\User\source\repos\Prerelease Par 2\Prerelease Par 2\bin\Debug\Prerelease Par 2.exe.config
+C:\Users\User\source\repos\Prerelease Par 2\Prerelease Par 2\bin\Debug\Prerelease Par 2.exe
+C:\Users\User\source\repos\Prerelease Par 2\Prerelease Par 2\bin\Debug\Prerelease Par 2.pdb
+C:\Users\User\source\repos\Prerelease Par 2\Prerelease Par 2\bin\Debug\Prerelease Par 2.xml
+C:\Users\User\source\repos\Prerelease Par 2\Prerelease Par 2\obj\Debug\Prerelease Par 2.vbprojAssemblyReference.cache
+C:\Users\User\source\repos\Prerelease Par 2\Prerelease Par 2\obj\Debug\Prerelease_Par_2.Resources.resources
+C:\Users\User\source\repos\Prerelease Par 2\Prerelease Par 2\obj\Debug\Prerelease Par 2.vbproj.GenerateResource.cache
+C:\Users\User\source\repos\Prerelease Par 2\Prerelease Par 2\obj\Debug\Prerelease Par 2.vbproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\Prerelease Par 2\Prerelease Par 2\obj\Debug\Prerelease Par 2.exe
+C:\Users\User\source\repos\Prerelease Par 2\Prerelease Par 2\obj\Debug\Prerelease Par 2.xml
+C:\Users\User\source\repos\Prerelease Par 2\Prerelease Par 2\obj\Debug\Prerelease Par 2.pdb
