@@ -189,8 +189,7 @@
                         Next
                         Console.WriteLine()
                     End If
-                    Exit For
-                Next
+                 Next
             Next
 
 
