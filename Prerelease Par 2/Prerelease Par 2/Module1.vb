@@ -1,6 +1,7 @@
-﻿Module Module1
+Module Module1
 
     Dim countindex As Integer
+    Dim WrongEntry As Boolean
 
 
 
@@ -19,6 +20,14 @@
         Database.Close()
         printArray(array)
         Database.Close()
+
+        Do
+            WrongEntry = False
+            VerifyID(array)
+            Console.Clear()
+        Loop Until WrongEntry = False
+
+        printArray(array)
         SearchArray(array)
 
 
@@ -32,9 +41,88 @@
 
     End Sub
 
+    Sub VerifyID(arr(,) As String)
+        VerifyNumPart(arr)
+        '-------------------------------------------------------------------------------
+        verifyCharPart(arr)
+        '--------------------------------------------------------------------------------
+        verifyDashPart(arr)
+
+    End Sub
+
+
+    Sub verifyDashPart(arr(,) As String)
+        Dim content, correction As String
+
+        For index = 0 To UBound(arr)
+            content = arr(index, 3)
+            If Mid(content, 6, 1) <> "-" Then
+                Console.WriteLine("There is an error in the ID: {0}, please re-enter the whole ID: ", content)
+                correction = Console.ReadLine()
+                arr(index, 3) = correction
+                WrongEntry = True
+            End If
+
+        Next
+
+    End Sub
+
+    Sub verifyCharPart(arr(,) As String)
+        Dim count, ChrPart As Integer
+        Dim content, correction As String
+
+        For index = 0 To UBound(arr)
+            content = arr(index, 3)
+            count = 1
+            ChrPart = 0
+            Do
+                If Mid(content, count, 1) >= "A" And Mid(content, count, 1) <= "Z" Then
+                    ChrPart = ChrPart + 1
+                End If
+                count = count + 1
+            Loop Until count = Len(content)
+            correction = ""
+            If ChrPart <> 0 Then
+                Console.WriteLine("The Character Part of the ID: {0} is wrong, Please Re-enter the ID", content)
+                correction = Console.ReadLine
+                content = Left(content, 6) + correction
+                arr(index, 3) = content
+                WrongEntry = True
+            End If
+        Next
+    End Sub
 
 
 
+    Sub VerifyNumPart(arr(,) As String)
+        Dim count, NumberOfNumbers As Integer
+        Dim content, correction As String
+
+        For index = 0 To UBound(arr)
+
+
+            content = arr(index, 3)
+            NumberOfNumbers = 0
+            count = 0
+
+            Do
+                If IsNumeric(content(count)) Then
+                    NumberOfNumbers = NumberOfNumbers + 1
+                End If
+                count = count + 1
+            Loop Until content(count) = "-" Or count = Len(content) - 1
+
+            If NumberOfNumbers <> 5 Then
+                Console.WriteLine("This particular id: {0} doesn't match the format, please re-enter the numeric part: ", content)
+                correction = Console.ReadLine()
+                WrongEntry = True
+                correction = correction + Right(content, 2)
+                Console.WriteLine(correction)
+                arr(index, 3) = correction
+            End If
+        Next
+
+    End Sub
 
 
     Sub leaveSch(arr(,) As String)
@@ -189,7 +277,8 @@
                         Next
                         Console.WriteLine()
                     End If
-                 Next
+
+                Next
             Next
 
 
@@ -234,15 +323,16 @@
 
     Sub dividingArray(arr(,) As String)
         Dim Database As New IO.StreamReader("F:\text.txt")
-        Dim contentline, name, email As String
+        Dim contentline, name, email, DOB, ID As String
         Dim hashcount, index, count As Integer
         index = 0
         hashcount = 0
-        contentline = Database.ReadLine()
-
-        While Not Database.EndOfStream
 
 
+        Do
+            contentline = Database.ReadLine()
+            ID = ""
+            DOB = ""
             email = ""
             name = ""
             count = 0
@@ -252,23 +342,34 @@
                 count = count + 1
             Loop Until contentline(count) = "#"
             arr(index, 0) = name
-
+            count = count + 1
 
             Do
-                email = email + Mid(contentline, count + 2, 1)
+                email = email + Mid(contentline, count + 1, 1)
                 count = count + 1
-            Loop Until Mid(contentline, count + 2, 1) = "#"
+            Loop Until Mid(contentline, count + 1, 1) = "#"
             arr(index, 1) = email
+            count = count + 1
+
+            Do
+
+                DOB = DOB + Mid(contentline, count + 1, 1)
+                count = count + 1
+            Loop Until Mid(contentline, count + 1, 1) = "#"
+            arr(index, 2) = DOB
+            count = count + 1
+
+            Do
+                ID = ID + Mid(contentline, count + 1, 1)
+                count = count + 1
+            Loop Until Mid(contentline, count + 1, 1) = ""
+            arr(index, 3) = ID
 
 
-            arr(index, 2) = Mid(contentline, count + 3, 8)
-
-            arr(index, 3) = Right(contentline, 7)
-            contentline = Database.ReadLine()
 
 
             index = index + 1
-        End While
+        Loop Until Database.EndOfStream
         Database.Close()
 
     End Sub
