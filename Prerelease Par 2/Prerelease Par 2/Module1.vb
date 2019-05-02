@@ -18,16 +18,14 @@ Module Module1
         dividingArray(array)
 
         Database.Close()
-        printArray(array)
-        Database.Close()
-
         Do
             WrongEntry = False
             VerifyID(array)
             Console.Clear()
         Loop Until WrongEntry = False
 
-        printArray(array)
+        Database.Close()
+
         SearchArray(array)
 
 
@@ -43,8 +41,10 @@ Module Module1
 
     Sub VerifyID(arr(,) As String)
         VerifyNumPart(arr)
+        Console.Clear()
         '-------------------------------------------------------------------------------
         verifyCharPart(arr)
+        Console.Clear()
         '--------------------------------------------------------------------------------
         verifyDashPart(arr)
 
@@ -57,9 +57,23 @@ Module Module1
         For index = 0 To UBound(arr)
             content = arr(index, 3)
             If Mid(content, 6, 1) <> "-" Then
-                Console.WriteLine("There is an error in the ID: {0}, please re-enter the whole ID: ", content)
+                Console.WriteLine("There is an error in the ID does not follow the format: ")
+
+                title()
+
+                For column = 0 To 3
+                    spacing(arr(index, column))
+                Next
+
+
+                Console.WriteLine()
+                Console.WriteLine("Please re-enter the ID of this particular student: ")
+                Console.WriteLine()
                 correction = Console.ReadLine()
+
+
                 arr(index, 3) = correction
+
                 WrongEntry = True
             End If
 
@@ -83,10 +97,23 @@ Module Module1
             Loop Until count = Len(content)
             correction = ""
             If ChrPart <> 0 Then
-                Console.WriteLine("The Character Part of the ID: {0} is wrong, Please Re-enter the ID", content)
+
+                Console.WriteLine("The Character Part of the ID does not follow the format: ")
+
+                title()
+
+                For column = 0 To 3
+                    spacing(arr(index, column))
+                Next
+                Console.WriteLine()
+
+                Console.WriteLine("Please enter the character part of this particular ID: ")
+                Console.WriteLine()
                 correction = Console.ReadLine
+
                 content = Left(content, 6) + correction
                 arr(index, 3) = content
+
                 WrongEntry = True
             End If
         Next
@@ -113,12 +140,22 @@ Module Module1
             Loop Until content(count) = "-" Or count = Len(content) - 1
 
             If NumberOfNumbers <> 5 Then
-                Console.WriteLine("This particular id: {0} doesn't match the format, please re-enter the numeric part: ", content)
+                title()
+                Console.WriteLine("This particular id contains an error: ")
+
+                For column = 0 To 3
+                    spacing(arr(index, column))
+                Next
+
+
+                Console.WriteLine("")
+                Console.WriteLine("Please re-enter the ID of this particular student: ")
                 correction = Console.ReadLine()
+
                 WrongEntry = True
                 correction = correction + Right(content, 2)
-                Console.WriteLine(correction)
                 arr(index, 3) = correction
+
             End If
         Next
 
@@ -203,6 +240,9 @@ Module Module1
     End Sub
 
     Sub SearchArray(array(,) As String)
+        Console.Clear()
+        printArray(array)
+
         Do
             Console.WriteLine()
             Console.WriteLine()
@@ -237,13 +277,9 @@ Module Module1
                 Case 5
                     Exit Do
             End Select
-            Console.Clear()
+
         Loop
     End Sub
-
-
-
-
 
 
     Sub experiment(arr(,) As String, n As Integer)
@@ -303,7 +339,6 @@ Module Module1
 
 
 
-
     Sub countNumberEntries()
         Dim Database As New IO.StreamReader("F:\text.txt")
         countindex = 0
@@ -316,9 +351,6 @@ Module Module1
         End While
         Database.Close()
     End Sub
-
-
-
 
 
     Sub dividingArray(arr(,) As String)
